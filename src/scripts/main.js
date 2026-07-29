@@ -241,32 +241,35 @@ if (navbar) {
 
 
 // 7. Split-line reveals on Viewport Enter
-const splitHeadings = document.querySelectorAll('#hero-heading, #touchdown-heading, .feature-title');
-splitHeadings.forEach(heading => {
-  splitLines(heading);
-  
-  const lines = heading.querySelectorAll('.split-line-content');
-  if (lines.length > 0) {
-    const trigger = heading.closest('section') || heading;
+const initSplitHeadings = () => {
+  const splitHeadings = document.querySelectorAll('#hero-heading, #touchdown-heading, .feature-title');
+  splitHeadings.forEach(heading => {
+    splitLines(heading);
     
-    // Hide initially to prevent layout jumps or hardcoded CSS transform issues
-    gsap.set(lines, { yPercent: 110 });
+    const lines = heading.querySelectorAll('.split-line-content');
+    if (lines.length > 0) {
+      const trigger = heading.closest('section') || heading;
+      
+      // Hide initially to prevent layout jumps or hardcoded CSS transform issues
+      gsap.set(lines, { yPercent: 110 });
 
-    if (heading.id !== 'hero-heading') {
-      gsap.to(lines, {
-        yPercent: 0,
-        duration: 1.2,
-        stagger: 0.08,
-        ease: "editorial",
-        scrollTrigger: {
+      if (heading.id !== 'hero-heading') {
+        ScrollTrigger.create({
           trigger: trigger,
           start: "top 82%",
-          toggleActions: "play none none none"
-        }
-      });
+          onEnter: () => {
+            gsap.to(lines, {
+              yPercent: 0,
+              duration: 1.2,
+              stagger: 0.08,
+              ease: "editorial"
+            });
+          }
+        });
+      }
     }
-  }
-});
+  });
+};
 
 
 // 8. Ticker Simulated Updates
@@ -295,32 +298,37 @@ if (tickerAlt && tickerVel) {
 
 
 // 9. Stats Count Up Trigger
-const statNumbers = document.querySelectorAll('.stat-number');
-statNumbers.forEach(stat => {
-  const target = parseFloat(stat.getAttribute('data-target'));
-  const decimals = parseInt(stat.getAttribute('data-decimals')) || 0;
-  
-  ScrollTrigger.create({
-    trigger: stat,
-    start: "top 90%",
-    onEnter: () => {
-      const obj = { value: 0 };
-      gsap.to(obj, {
-        value: target,
-        duration: 2.2,
-        ease: "editorial",
-        onUpdate: () => {
-          if (decimals > 0) {
-            let valStr = (obj.value / Math.pow(10, decimals)).toFixed(decimals);
-            stat.textContent = valStr;
-          } else {
-            stat.textContent = Math.round(obj.value).toLocaleString();
+const initStatsCountUp = () => {
+  const statNumbers = document.querySelectorAll('.stat-number');
+  statNumbers.forEach(stat => {
+    // Reset back to initial representation before animating
+    const decimals = parseInt(stat.getAttribute('data-decimals')) || 0;
+    stat.textContent = decimals > 0 ? "0.0" : "0";
+
+    const target = parseFloat(stat.getAttribute('data-target'));
+    
+    ScrollTrigger.create({
+      trigger: stat,
+      start: "top 90%",
+      onEnter: () => {
+        const obj = { value: 0 };
+        gsap.to(obj, {
+          value: target,
+          duration: 2.2,
+          ease: "editorial",
+          onUpdate: () => {
+            if (decimals > 0) {
+              let valStr = (obj.value / Math.pow(10, decimals)).toFixed(decimals);
+              stat.textContent = valStr;
+            } else {
+              stat.textContent = Math.round(obj.value).toLocaleString();
+            }
           }
-        }
-      });
-    }
+        });
+      }
+    });
   });
-});
+};
 
 
 // 10. Global Floating Drone & Inversion Mechanics
@@ -509,14 +517,22 @@ const verifyAndResetInversion = () => {
   features.forEach(block => {
     const trigger = ScrollTrigger.getById(block.id + '-trigger');
     if (trigger && trigger.isActive) {
-      anyActive = true;
       block.classList.add('drone-present');
+      if (block.id !== 'feature-2-pin') {
+        anyActive = true;
+      }
     }
   });
   
   if (!anyActive) {
     document.body.classList.remove('inverted-colors');
-    features.forEach(b => b.classList.remove('drone-present'));
+    features.forEach(b => {
+      // Keep drone-present class on active block even if we are not inverted
+      const trg = ScrollTrigger.getById(b.id + '-trigger');
+      if (!trg || !trg.isActive) {
+        b.classList.remove('drone-present');
+      }
+    });
   }
 };
 
@@ -568,7 +584,7 @@ const runIntroLandingSequence = () => {
     }, 0.2);
 
     introTl.to(droneRotator, {
-      scale: 1.0,
+      scale: 1.5, // Settle at 1.5 (larger size)
       rotate: 0,
       duration: 2.2,
       ease: "power2.out"
@@ -600,7 +616,7 @@ const initDescentMechanics = () => {
     
     if (anchors.length > 0) {
       gsap.set(droneContainer, { x: anchors[0].x, y: anchors[0].y, opacity: 1 });
-      gsap.set(droneRotator, { scale: 1.0, rotate: 0 });
+      gsap.set(droneRotator, { scale: 1.5, rotate: 0 });
     }
   } else {
     sessionStorage.setItem('aether-intro-played-v3', 'true');
@@ -619,6 +635,12 @@ const initGlobalDescent = () => {
   });
 
   calculateAnchorCoords();
+  
+  // Re-register Stats triggers so they aren't lost when triggers are cleared
+  initStatsCountUp();
+  
+  // Re-register Split Text headings triggers
+  initSplitHeadings();
 
   const activePath = document.getElementById('global-flight-path-active');
   const bgPath = document.getElementById('global-flight-path-bg');
@@ -658,13 +680,17 @@ const initGlobalDescent = () => {
       end: "bottom 55%",
       onEnter: () => {
         if (!isIntroActive) {
-          document.body.classList.add('inverted-colors');
+          if (block.id !== 'feature-2-pin') {
+            document.body.classList.add('inverted-colors');
+          }
           block.classList.add('drone-present');
         }
       },
       onEnterBack: () => {
         if (!isIntroActive) {
-          document.body.classList.add('inverted-colors');
+          if (block.id !== 'feature-2-pin') {
+            document.body.classList.add('inverted-colors');
+          }
           block.classList.add('drone-present');
         }
       },
@@ -779,17 +805,16 @@ const initGlobalDescent = () => {
             const scrollVel = self.getVelocity();
             const gyroTilt = Math.min(Math.max(scrollVel * -0.012, -15), 15);
 
-            let scale = 1.0;
+            // Responsive scale profile: starts at 1.5 (Hero), shrinks to 0.8 in cards, touchdown approach expands to 1.25, lands at 1.0.
+            let scale = 1.5;
             if (progress < 0.25) {
-              scale = 1.0 - (progress * 4 * 0.22);
-            } else if (progress < 0.5) {
-              scale = 0.78 - ((progress - 0.25) * 4 * 0.12);
+              scale = 1.5 - (progress * 4 * 0.7); // Shrinks from 1.5 to 0.8
             } else if (progress < 0.75) {
-              scale = 0.66 + ((progress - 0.5) * 4 * 0.24);
+              scale = 0.8; // Regular / small inside cards
             } else if (progress < 0.93) {
-              scale = 0.90 + ((progress - 0.75) / 0.18 * 0.35);
+              scale = 0.8 + ((progress - 0.75) / 0.18 * 0.45); // Expands close to touchdown (1.25)
             } else {
-              scale = 1.25 - ((progress - 0.93) / 0.07 * 0.25);
+              scale = 1.25 - ((progress - 0.93) / 0.07 * 0.25); // Settles at 1.0
             }
 
             gsap.to(droneRotator, {

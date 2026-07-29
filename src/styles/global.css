@@ -317,43 +317,113 @@ p {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 15;
+  z-index: 5;
   overflow: visible;
 }
+
+#smooth-wrapper {
+  position: relative;
+  z-index: 10;
+}
+
+/* Force panels to stack above the flight path to mask the red line */
+.feature-visual {
+  position: relative;
+  z-index: 20;
+}
+.tech-panel {
+  position: relative;
+  z-index: 21;
+  background-color: var(--paper-secondary);
+}
+.stats-section {
+  position: relative;
+  z-index: 30;
+}
+.touchdown-section {
+  position: relative;
+  z-index: 30;
+}
+.footer-section {
+  position: relative;
+  z-index: 30;
+}
+
 
 /* Active schematic visual updates when drone lands in section */
 .pulse-ring {
   animation-play-state: paused;
+  transition: border-color 0.5s;
 }
 .ring-1 {
   animation-play-state: inherit;
+  border: 1.5px dashed var(--accent-red);
 }
 .ring-2 {
   animation-play-state: inherit;
+  border: 1.5px solid rgba(194, 13, 38, 0.15);
+}
+.warning-symbol {
+  color: var(--accent-red) !important;
+  transition: color 0.5s;
 }
 .feature-block.drone-present .pulse-ring {
   animation-play-state: running;
 }
+.feature-block.drone-present .ring-1 {
+  border-color: #10B981 !important;
+}
+.feature-block.drone-present .ring-2 {
+  border-color: rgba(16, 185, 129, 0.25) !important;
+}
 .feature-block.drone-present .warning-symbol {
-  color: var(--accent-red) !important;
+  color: #10B981 !important;
 }
 
+/* Crosshairs visual */
+.cross-line {
+  background-color: var(--accent-red);
+  transition: background-color 0.5s var(--ease-editorial);
+}
 .target-circle {
   animation-play-state: paused;
+  border: 1.5px solid var(--accent-red) !important;
+  transition: border-color 0.5s;
 }
 .feature-block.drone-present .target-circle {
   animation-play-state: running;
+  border-color: #10B981 !important;
+}
+.feature-block.drone-present .cross-line {
+  background-color: #10B981 !important;
+}
+.corner {
+  border: 1px solid var(--accent-red) !important;
+  transition: transform 0.6s var(--ease-editorial), border-color 0.5s;
+}
+.feature-block.drone-present .cr-tl { transform: translate(4px, 4px); border-color: #10B981 !important; }
+.feature-block.drone-present .cr-tr { transform: translate(-4px, 4px); border-color: #10B981 !important; }
+.feature-block.drone-present .cr-bl { transform: translate(4px, -4px); border-color: #10B981 !important; }
+.feature-block.drone-present .cr-br { transform: translate(-4px, -4px); border-color: #10B981 !important; }
+
+.lock-status-label {
+  color: var(--accent-red) !important;
+  transition: color 0.5s;
 }
 .feature-block.drone-present .lock-status-label {
-  color: var(--ink) !important;
+  color: #10B981 !important;
 }
 
+@keyframes mapNodeGlow {
+  0% { r: 3.5px; opacity: 0.7; }
+  100% { r: 7.5px; opacity: 1; filter: drop-shadow(0 0 6px var(--accent-red)); }
+}
 .feature-block.drone-present .map-grid-svg circle:last-child {
   fill: var(--accent-red) !important;
-  r: 6px !important;
+  animation: mapNodeGlow 1s ease-in-out infinite alternate;
   stroke: var(--paper) !important;
   stroke-width: 1.5px !important;
-  filter: drop-shadow(0 0 3px rgba(194, 13, 38, 0.6));
 }
+
 
 
