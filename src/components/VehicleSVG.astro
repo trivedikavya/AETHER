@@ -1,0 +1,138 @@
+---
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+---
+
+<svg
+  id="aether-vehicle"
+  class={`aether-vehicle-svg ${className}`}
+  viewBox="0 0 160 160"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <!-- Accent red glow for touchdown -->
+    <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g class="drone-core">
+    
+    <!-- Outer Sensor Rings / Radars (faint tech details) -->
+    <circle cx="80" cy="80" r="70" stroke="var(--line)" stroke-width="0.75" stroke-dasharray="3 3" />
+    <circle cx="80" cy="80" r="50" stroke="var(--line)" stroke-width="0.5" />
+    
+    <!-- Diagonal Rotor Arms -->
+    <line x1="30" y1="30" x2="130" y2="130" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="round" opacity="0.8" />
+    <line x1="130" y1="30" x2="30" y2="130" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="round" opacity="0.8" />
+
+    <!-- Rotor Hubs / Motors -->
+    <circle cx="30" cy="30" r="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.25" />
+    <circle cx="130" cy="30" r="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.25" />
+    <circle cx="30" cy="130" r="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.25" />
+    <circle cx="130" cy="130" r="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.25" />
+
+    <!-- Propellers (spinning blur effect via CSS animation) -->
+    <g class="propeller prop-tl">
+      <ellipse cx="30" cy="30" rx="14" ry="2.5" stroke="var(--ink-secondary)" stroke-width="0.75" opacity="0.4" />
+    </g>
+    <g class="propeller prop-tr">
+      <ellipse cx="130" cy="30" rx="14" ry="2.5" stroke="var(--ink-secondary)" stroke-width="0.75" opacity="0.4" />
+    </g>
+    <g class="propeller prop-bl">
+      <ellipse cx="30" cy="130" rx="14" ry="2.5" stroke="var(--ink-secondary)" stroke-width="0.75" opacity="0.4" />
+    </g>
+    <g class="propeller prop-br">
+      <ellipse cx="130" cy="130" rx="14" ry="2.5" stroke="var(--ink-secondary)" stroke-width="0.75" opacity="0.4" />
+    </g>
+
+    <!-- Main Fuselage / Core Pod Body -->
+    <!-- Geometric hexagonal core -->
+    <polygon points="80,52 108,66 108,94 80,108 52,94 52,66" fill="var(--paper-secondary)" stroke="var(--ink)" stroke-width="1.5" />
+    
+    <!-- Central Sensor Eye (Status Indicator) -->
+    <circle cx="80" cy="80" r="10" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.25" />
+    <circle id="drone-eye" cx="80" cy="80" r="4" fill="var(--accent-red)" filter="url(#glow-red)" />
+    
+    <!-- Technical internal cross lines -->
+    <path d="M52,80 H108" stroke="var(--line)" stroke-width="0.75" stroke-dasharray="2 2" />
+    <path d="M80,52 V108" stroke="var(--line)" stroke-width="0.75" stroke-dasharray="2 2" />
+
+    <!-- Landing Gear Legs (Animate on touchdown!) -->
+    <!-- Left Leg -->
+    <g id="landing-gear-left" class="landing-gear">
+      <line x1="58" y1="92" x2="48" y2="108" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" />
+      <line id="pad-l" x1="42" y1="108" x2="54" y2="108" stroke="var(--ink-secondary)" stroke-width="1.5" stroke-linecap="round" />
+    </g>
+    
+    <!-- Right Leg -->
+    <g id="landing-gear-right" class="landing-gear">
+      <line x1="102" y1="92" x2="112" y2="108" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" />
+      <line id="pad-r" x1="106" y1="108" x2="118" y2="108" stroke="var(--ink-secondary)" stroke-width="1.5" stroke-linecap="round" />
+    </g>
+
+  </g>
+</svg>
+
+<style>
+  .aether-vehicle-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  .propeller {
+    transform-origin: center;
+  }
+  .prop-tl { transform-origin: 30px 30px; animation: spin 0.08s linear infinite; }
+  .prop-tr { transform-origin: 130px 30px; animation: spin-reverse 0.08s linear infinite; }
+  .prop-bl { transform-origin: 30px 130px; animation: spin-reverse 0.08s linear infinite; }
+  .prop-br { transform-origin: 130px 130px; animation: spin 0.08s linear infinite; }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes spin-reverse {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  .landing-gear {
+    transform-origin: 80px 80px;
+    transition: transform 0.8s var(--ease-editorial);
+  }
+
+  :global(.is-landing) .landing-gear {
+    transform: translateY(6px);
+  }
+  
+  :global(.is-landed) #drone-eye {
+    fill: var(--accent-red) !important;
+  }
+
+  :global(.is-landed) #pad-l,
+  :global(.is-landed) #pad-r {
+    stroke: var(--accent-red) !important;
+  }
+
+  /* Pulse status eye */
+  #drone-eye {
+    animation: statusPulse 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes statusPulse {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+</style>

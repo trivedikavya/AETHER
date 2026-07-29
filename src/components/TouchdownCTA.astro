@@ -1,0 +1,308 @@
+---
+---
+
+<section id="touchdown" class="touchdown-section">
+  <!-- Dynamic glow layer. Background color inversion itself is handled on scroll scrub in main.js -->
+  <div class="touchdown-glow-layer" id="landing-glow"></div>
+  
+  <div class="container touchdown-container">
+    <!-- Landing schematic drawing -->
+    <div class="landing-deck" id="landing-deck">
+      <div class="deck-outline"></div>
+      
+      <!-- Docking Pad status ring -->
+      <div class="docking-pad">
+        <div class="dock-ring outer"></div>
+        <div class="dock-ring inner"></div>
+        <div class="dock-crosshair"></div>
+        <div class="dock-sensors">
+          <span class="sensor-light flash-slow"></span>
+          <span class="sensor-light flash-fast"></span>
+        </div>
+      </div>
+      
+      <!-- Minimal red landing guide line vector - drawn in via CSS/GSAP -->
+      <svg class="landing-vector-line" viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          id="landing-vector-path"
+          d="M 5,20 L 45,20 M 55,20 L 95,20"
+          stroke="var(--accent-red)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-dasharray="100"
+          stroke-dashoffset="100"
+        />
+      </svg>
+      
+      <!-- Particle explosion container -->
+      <div id="particle-burst-container" class="particle-burst-container"></div>
+    </div>
+
+    <!-- Text content -->
+    <div class="touchdown-content">
+      <span class="mono-accent touchdown-tag">// SEQUENCE TERMINATED</span>
+      <h2 class="touchdown-title" id="touchdown-heading">
+        Airspace <span class="emphasis-italic">touchdown lock</span> is fully confirmed.
+      </h2>
+      <p class="touchdown-desc">
+        Descent sequence successfully finalized. Ground electro-clamps engaged, payload terminal lock verified. Logistics grid synchronizing data.
+      </p>
+
+      <!-- Bounded/Restrained CTA link -->
+      <div class="cta-wrapper">
+        <a href="#" class="editorial-link touchdown-btn magnetic-btn ripple-btn" id="ultimate-cta" data-strength="15">
+          Secure Docking Corridor <span>&rarr;</span>
+          <span class="ripple-wave"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .touchdown-section {
+    position: relative;
+    padding: 12rem 0 10rem 0;
+    background-color: var(--paper); /* Default paper background, inverted by body.inverted-colors scroll scrub */
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    z-index: 10;
+    transition: background-color 0.8s var(--ease-editorial),
+                border-color 0.8s var(--ease-editorial);
+  }
+
+  @media (max-width: 768px) {
+    .touchdown-section {
+      padding: 6rem 0;
+    }
+  }
+
+  /* Red glow focus - active on touchdown */
+  .touchdown-glow-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle 400px at 50% 30%, rgba(194, 13, 38, 0.04), transparent 70%);
+    opacity: 0;
+    transition: opacity 1.2s var(--ease-editorial);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .touchdown-glow-layer.active {
+    opacity: 1;
+  }
+
+  .touchdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  /* Landing platform visuals */
+  .landing-deck {
+    position: relative;
+    width: 260px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .landing-deck {
+      width: 200px;
+      height: 80px;
+    }
+  }
+
+  .deck-outline {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--line);
+    background-color: rgba(243, 241, 236, 0.3);
+    border-radius: 4px;
+    transform: perspective(300px) rotateX(45deg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.8s, background-color 0.8s, box-shadow 0.8s;
+  }
+
+  /* Landed state modifications */
+  :global(.is-landed) .deck-outline {
+    border-color: var(--accent-red);
+    background-color: rgba(194, 13, 38, 0.03);
+    box-shadow: 0 15px 40px rgba(194, 13, 38, 0.1);
+  }
+
+  .docking-pad {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: perspective(300px) rotateX(45deg) scaleY(0.85);
+  }
+
+  .dock-ring {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .dock-ring.outer {
+    width: 80px;
+    height: 80px;
+    border: 1.5px dashed var(--line);
+    transition: border-color 0.8s, border-style 0.8s;
+  }
+
+  :global(.is-landed) .dock-ring.outer {
+    border-color: var(--accent-red);
+    border-style: solid;
+  }
+
+  .dock-ring.inner {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(20, 20, 20, 0.03);
+    transition: border-color 0.8s;
+  }
+
+  :global(.is-landed) .dock-ring.inner {
+    border-color: rgba(194, 13, 38, 0.2);
+  }
+
+  .dock-crosshair {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dock-crosshair::before,
+  .dock-crosshair::after {
+    content: '';
+    position: absolute;
+    background-color: var(--line);
+    transition: background-color 0.8s;
+  }
+
+  .dock-crosshair::before { width: 100%; height: 1px; }
+  .dock-crosshair::after { width: 1px; height: 100%; }
+
+  :global(.is-landed) .dock-crosshair::before,
+  :global(.is-landed) .dock-crosshair::after {
+    background-color: var(--accent-red);
+  }
+
+  .dock-sensors {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    box-sizing: border-box;
+  }
+
+  .sensor-light {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: var(--ink-tertiary);
+    opacity: 0.6;
+  }
+
+  :global(.is-landed) .sensor-light {
+    background-color: var(--accent-red);
+  }
+
+  .flash-slow { animation: sensorFlash 1.2s ease-in-out infinite; }
+  .flash-fast { animation: sensorFlash 0.6s ease-in-out infinite; animation-delay: 0.3s; }
+
+  @keyframes sensorFlash {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  /* Red Vector Guideline */
+  .landing-vector-line {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* Dust explosions */
+  .particle-burst-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  :global(.dust-particle) {
+    position: absolute;
+    background-color: var(--accent-red);
+    border-radius: 50%;
+    opacity: 0.85;
+  }
+
+  /* Typography details */
+  .touchdown-content {
+    max-width: 580px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .touchdown-tag {
+    color: var(--accent-red);
+    margin-bottom: 2rem;
+  }
+
+  .touchdown-title {
+    margin-bottom: 2.5rem;
+    line-height: 1.05;
+  }
+
+  .touchdown-desc {
+    margin-bottom: 3.5rem;
+    color: var(--ink-secondary);
+  }
+
+  .touchdown-btn {
+    font-size: 0.8rem;
+    padding: 0.5rem 0;
+  }
+
+  .ripple-wave {
+    position: absolute;
+    background: rgba(194, 13, 38, 0.2);
+    border-radius: 50%;
+    transform: scale(0);
+    pointer-events: none;
+    transition: transform 0.6s var(--ease-editorial), opacity 0.6s;
+  }
+</style>

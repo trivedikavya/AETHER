@@ -1,0 +1,122 @@
+---
+---
+<section id="stats" class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <!-- Card 1 -->
+      <div class="stat-card">
+        <span class="mono-accent stat-label">ENTRY 01 — FLIGHTS</span>
+        <div class="stat-value-wrapper">
+          <span class="stat-number" data-target="142" data-decimals="1">0.0</span><span class="stat-unit">M</span>
+        </div>
+        <p class="stat-desc font-mono">Autonomous missions successfully routed through urban coordinates.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="stat-card">
+        <span class="mono-accent stat-label">ENTRY 02 — LOCK SPEED</span>
+        <div class="stat-value-wrapper">
+          <span class="stat-number" data-target="42" data-decimals="0">0</span><span class="stat-unit">MS</span>
+        </div>
+        <p class="stat-desc font-mono">Average 4D airspace recalculation and path conflict resolution speed.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="stat-card">
+        <span class="mono-accent stat-label">ENTRY 03 — DOCKS</span>
+        <div class="stat-value-wrapper">
+          <span class="stat-number" data-target="320" data-decimals="0">0</span><span class="stat-unit">+</span>
+        </div>
+        <p class="stat-desc font-mono">Active ground docking terminals globally connected to the Aether grid.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats-section {
+    padding: 8rem 0;
+    background-color: var(--paper-secondary);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    z-index: 2;
+    transition: background-color 0.8s var(--ease-editorial),
+                border-color 0.8s var(--ease-editorial);
+  }
+
+  @media (max-width: 768px) {
+    .stats-section {
+      padding: 4rem 0;
+    }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+  }
+
+  @media (max-width: 900px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .stat-card {
+    border-left: 1px solid var(--line);
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: border-color 0.8s var(--ease-editorial);
+  }
+
+  @media (max-width: 900px) {
+    .stat-card {
+      border-left: none;
+      border-bottom: 1px solid var(--line);
+      padding-left: 0;
+      padding-bottom: 2rem;
+    }
+    
+    .stat-card:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .stat-label {
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-value-wrapper {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+
+  .stat-number {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--ink);
+    transition: color 0.8s var(--ease-editorial);
+  }
+
+  .stat-unit {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--accent-red);
+    margin-left: 0.15rem;
+  }
+
+  .stat-desc {
+    font-size: 0.75rem;
+    color: var(--ink-secondary);
+    line-height: 1.5;
+  }
+</style>

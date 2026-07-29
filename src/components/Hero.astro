@@ -1,0 +1,135 @@
+---
+---
+
+<section id="hero" class="hero-section">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <!-- Tag / Monospace field log accent -->
+      <div class="hero-tag">
+        <span class="mono-accent">// FIELD LOG — ENTRY 01</span>
+      </div>
+
+      <!-- Main Serif Headline -->
+      <h1 class="hero-title" id="hero-heading">
+        Decentralized flight log, mapping the exact stages of a <span class="emphasis-italic">controlled descent.</span>
+      </h1>
+
+      <!-- Description -->
+      <p class="hero-desc">
+        Aether coordinates regional airspace corridors into micro-grids. Tracing a clean, 4D trajectory vector from low-orbit entry to touchdown lock, compensating for wind-shear in real-time.
+      </p>
+
+      <!-- CTAs (Underline links, pure restraint!) -->
+      <div class="hero-actions">
+        <a href="#features" class="editorial-link magnetic-btn" data-strength="15">
+          Read Stage Logs <span>&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Vehicle Anchor Point -->
+    <div id="anchor-hero" class="drone-anchor-point"></div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 100px;
+    background-color: var(--paper);
+    overflow: visible;
+    transition: background-color 0.8s var(--ease-editorial);
+  }
+
+  .flight-path-svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 160vh;
+    pointer-events: none;
+    z-index: 1;
+    overflow: visible;
+  }
+
+  @media (max-width: 1024px) {
+    .flight-path-svg {
+      width: 70%;
+      height: 140vh;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .flight-path-svg {
+      display: none;
+    }
+  }
+
+  .hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-content {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-tag {
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    margin-bottom: 2.5rem;
+    line-height: 1.05;
+  }
+
+  .hero-desc {
+    font-size: 1.125rem;
+    max-width: 520px;
+    margin-bottom: 3.5rem;
+    color: var(--ink-secondary);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  .drone-anchor-point {
+    position: absolute;
+    top: 15vh;
+    right: 8%;
+    width: 140px;
+    height: 140px;
+    pointer-events: none;
+    z-index: 30;
+  }
+
+  @media (max-width: 1024px) {
+    .drone-anchor-point {
+      width: 100px;
+      height: 100px;
+      right: 4%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .drone-anchor-point {
+      position: relative;
+      top: auto;
+      right: auto;
+      margin: 3rem auto 0 auto;
+      width: 120px;
+      height: 120px;
+    }
+  }
+</style>

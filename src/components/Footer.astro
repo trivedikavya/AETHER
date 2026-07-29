@@ -1,0 +1,223 @@
+---
+---
+<footer class="footer-section">
+  <div class="container footer-container">
+    <!-- Top Row -->
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-mark">
+          <span class="logo-text">AETHER</span>
+          <span class="logo-dot"></span>
+        </div>
+        <p class="brand-desc font-mono">
+          Autonomous logistics orchestration grid. Secure decentralized airspace routing for high-density urban environments.
+        </p>
+      </div>
+
+      <div class="footer-links-grid">
+        <!-- Col 1 -->
+        <div class="footer-col">
+          <span class="mono-accent col-label">// FLIGHT CORRIDORS</span>
+          <div class="col-links">
+            <a href="#features">Spatial Corridors</a>
+            <a href="#stats">Metrics Network</a>
+            <a href="#touchdown">Terminal Control</a>
+          </div>
+        </div>
+        <!-- Col 2 -->
+        <div class="footer-col">
+          <span class="mono-accent col-label">// PROTOCOLS</span>
+          <div class="col-links">
+            <a href="#">Wind Shear Limits</a>
+            <a href="#">LIDAR Bubble Specs</a>
+            <a href="#">Override Protocols</a>
+          </div>
+        </div>
+        <!-- Col 3 -->
+        <div class="footer-col">
+          <span class="mono-accent col-label">// LEGAL OVERWATCH</span>
+          <div class="col-links">
+            <a href="#">FAA Integration</a>
+            <a href="#">Terminal Map Status</a>
+            <a href="#">Airspace Security</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider Line -->
+    <hr class="hairline-divider" />
+
+    <!-- Bottom Row -->
+    <div class="footer-bottom font-mono">
+      <div class="footer-copy">
+        &copy; {new Date().getFullYear()} Aether Logistics Inc. All rights reserved.
+      </div>
+      <div class="footer-status">
+        <span class="status-indicator"></span>
+        <span>OVERWATCH NOMINAL [99.99%]</span>
+      </div>
+      <div class="footer-credits">
+        Field log design by <a href="#" class="credit-link">Antigravity</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-section {
+    background-color: var(--paper);
+    border-top: 1px solid var(--line);
+    padding: 6rem 0 3rem 0;
+    position: relative;
+    z-index: 2;
+    transition: background-color 0.8s var(--ease-editorial),
+                border-color 0.8s var(--ease-editorial);
+  }
+
+  @media (max-width: 768px) {
+    .footer-section {
+      padding: 4rem 0 2rem 0;
+    }
+  }
+
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 4rem;
+  }
+
+  @media (max-width: 900px) {
+    .footer-top {
+      flex-direction: column;
+      gap: 3.5rem;
+    }
+  }
+
+  .footer-brand {
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .logo-text {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    transition: color 0.8s var(--ease-editorial);
+  }
+
+  .logo-dot {
+    width: 4px;
+    height: 4px;
+    background-color: var(--accent-red);
+    border-radius: 50%;
+  }
+
+  .brand-desc {
+    font-size: 0.7rem;
+    color: var(--ink-secondary);
+    line-height: 1.6;
+  }
+
+  .footer-links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+  }
+
+  @media (max-width: 600px) {
+    .footer-links-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      width: 100%;
+    }
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .col-label {
+    color: var(--ink);
+    font-size: 0.65rem;
+  }
+
+  .col-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .col-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .col-links a:hover {
+    color: var(--accent-red);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.65rem;
+    color: var(--ink-secondary);
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+  }
+
+  .footer-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--ink);
+  }
+
+  .status-indicator {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--accent-red);
+  }
+
+  .credit-link {
+    color: var(--accent-red);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .credit-link:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,359 @@
+/* global.css v2 - Editorial Direction */
+
+/* Web Fonts Setup */
+@font-face {
+  font-family: 'Fraunces';
+  src: url('/fonts/bricolage-grotesque-800.woff2') format('woff2'); /* Fallback name mapping to avoid file missing issues, but we will preload Fraunces Google Font CDN or self-host it. Let's declare font-face for our downloaded fonts, and fallback gracefully */
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Custom CSS Variables - Epoch Inspired */
+:root {
+  --paper: #FAF8F5;          /* warm cream background */
+  --paper-secondary: #F3F1EC;
+  --ink: #141414;            /* near-black ink text */
+  --ink-secondary: #46423A;  /* charcoal body */
+  --ink-tertiary: #6B6558;   /* muted labels */
+  --line: #E3DDD2;           /* hairline border beige */
+  --accent-red: #C20D26;     /* THE single bold crimson */
+  --accent-blue: #2C5EA3;    /* link hover blue */
+  
+  --ease-editorial: cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+/* Reset & layout bases */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif; /* We will use Google Font CDNs for Fraunces and General Sans (via Inter fallback) to ensure flawless local rendering */
+  font-size: 16px;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) var(--paper);
+  scroll-behavior: auto;
+}
+
+/* Color inversion classes */
+body.inverted-colors {
+  background-color: #141414 !important;
+  color: #FAF8F5 !important;
+  
+  --paper: #141414;
+  --paper-secondary: #1a1a1a;
+  --ink: #FAF8F5;
+  --ink-secondary: #E3DDD2;
+  --ink-tertiary: #8B8F98;
+  --line: #2c2925;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overflow: clip;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.8s var(--ease-editorial), color 0.8s var(--ease-editorial);
+}
+
+/* Universal seamless variables transition to avoid color mismatch flashing */
+body, section, p, h1, h2, h3, h4, hr, div, nav, footer, 
+.tech-panel, .tech-panel-header, .stat-card, .logo-text, 
+.nav-link-item, .editorial-link, .live-status-strip, .marquee-content,
+.status-item, .telemetry-num, [class^="telemetry-num-dup"], 
+.drone-telemetry-tag, .deck-outline, .docking-pad, .dock-ring,
+.dock-crosshair, .sensor-light, .warning-symbol, .sensor-telem, .lock-status-label {
+  transition: background-color 0.8s var(--ease-editorial),
+              color 0.8s var(--ease-editorial),
+              border-color 0.8s var(--ease-editorial),
+              stroke 0.8s var(--ease-editorial),
+              fill 0.8s var(--ease-editorial),
+              box-shadow 0.8s var(--ease-editorial);
+}
+
+/* Typography Design Scale */
+h1, h2, h3, h4 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  transition: color 0.8s var(--ease-editorial);
+}
+
+h1 {
+  font-size: clamp(2.75rem, 7vw, 6rem);
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4.5vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+p {
+  font-family: 'Inter', sans-serif; /* fallback for General Sans */
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: var(--ink-secondary);
+  line-height: 1.65;
+  letter-spacing: -0.015em;
+  transition: color 0.8s var(--ease-editorial);
+}
+
+.mono-accent {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-tertiary);
+  transition: color 0.8s var(--ease-editorial);
+}
+
+/* Text inline elements */
+.emphasis-italic {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent-red);
+}
+
+/* Premium Noise Texture Overlay */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  content: "";
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Layout boundaries */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+/* Custom pointers (hide on mobile) */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-red);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: transform 0.2s, background-color 0.2s;
+}
+.custom-cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(194, 13, 38, 0.35);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: border-color 0.2s, transform 0.1s ease-out;
+}
+
+/* Text Masking / SplitText animations markup wrapper */
+.split-line-wrapper {
+  overflow: hidden;
+  display: block;
+}
+.split-line-content {
+  display: inline-block;
+  transform: translateY(110%);
+}
+
+/* Hairline dividers */
+.hairline-divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--line);
+  border: none;
+  transition: background-color 0.8s var(--ease-editorial);
+}
+
+/* Minimal text link (underlined growth) */
+.editorial-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.editorial-link span {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-editorial);
+}
+
+.editorial-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--accent-red);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-editorial);
+}
+
+.editorial-link:hover {
+  color: var(--accent-red);
+}
+
+.editorial-link:hover span {
+  transform: translateX(3px);
+}
+
+.editorial-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-tertiary);
+}
+
+/* Global Flight Path SVG Overlay */
+.global-flight-path-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 15;
+  overflow: visible;
+}
+
+/* Active schematic visual updates when drone lands in section */
+.pulse-ring {
+  animation-play-state: paused;
+}
+.ring-1 {
+  animation-play-state: inherit;
+}
+.ring-2 {
+  animation-play-state: inherit;
+}
+.feature-block.drone-present .pulse-ring {
+  animation-play-state: running;
+}
+.feature-block.drone-present .warning-symbol {
+  color: var(--accent-red) !important;
+}
+
+.target-circle {
+  animation-play-state: paused;
+}
+.feature-block.drone-present .target-circle {
+  animation-play-state: running;
+}
+.feature-block.drone-present .lock-status-label {
+  color: var(--ink) !important;
+}
+
+.feature-block.drone-present .map-grid-svg circle:last-child {
+  fill: var(--accent-red) !important;
+  r: 6px !important;
+  stroke: var(--paper) !important;
+  stroke-width: 1.5px !important;
+  filter: drop-shadow(0 0 3px rgba(194, 13, 38, 0.6));
+}
+
+

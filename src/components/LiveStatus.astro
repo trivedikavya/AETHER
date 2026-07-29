@@ -1,0 +1,134 @@
+---
+---
+<div class="live-status-strip">
+  <div class="marquee-track">
+    <div class="marquee-content font-mono">
+      <!-- Item 1 -->
+      <div class="status-item">
+        <span class="status-indicator"></span>
+        <span class="mono-accent">// GRID OVERWATCH ACTIVATED</span>
+      </div>
+      <!-- Item 2 -->
+      <div class="status-item">
+        <span>ALT:</span>
+        <span id="ticker-alt" class="telemetry-num" data-val="1402">1,402</span>
+        <span>M</span>
+      </div>
+      <!-- Item 3 -->
+      <div class="status-item">
+        <span>VEL:</span>
+        <span id="ticker-vel" class="telemetry-num" data-val="72.4">72.4</span>
+        <span>M/S</span>
+      </div>
+      <!-- Item 4 -->
+      <div class="status-item">
+        <span>SYS LOG // TIME:</span>
+        <span>18:02:27 UTC</span>
+      </div>
+      <!-- Item 5 -->
+      <div class="status-item">
+        <span>GRID:</span>
+        <span>40.7128° N, 74.0060° W</span>
+      </div>
+      <!-- Item 6 -->
+      <div class="status-item">
+        <span>SIGNAL:</span>
+        <span id="ticker-sat" data-val="12">12</span>
+        <span>/16 DB</span>
+      </div>
+    </div>
+    
+    <!-- Duplicate content for infinite scrolling marquee -->
+    <div class="marquee-content font-mono" aria-hidden="true">
+      <div class="status-item">
+        <span class="status-indicator"></span>
+        <span class="mono-accent">// GRID OVERWATCH ACTIVATED</span>
+      </div>
+      <div class="status-item">
+        <span>ALT:</span>
+        <span class="telemetry-num-dup1">1,402</span>
+        <span>M</span>
+      </div>
+      <div class="status-item">
+        <span>VEL:</span>
+        <span class="telemetry-num-dup2">72.4</span>
+        <span>M/S</span>
+      </div>
+      <div class="status-item">
+        <span>SYS LOG // TIME:</span>
+        <span>18:02:27 UTC</span>
+      </div>
+      <div class="status-item">
+        <span>GRID:</span>
+        <span>40.7128° N, 74.0060° W</span>
+      </div>
+      <div class="status-item">
+        <span>SIGNAL:</span>
+        <span class="telemetry-num-dup4">12</span>
+        <span>/16 DB</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .live-status-strip {
+    position: relative;
+    width: 100%;
+    background-color: var(--paper-secondary);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    padding: 0.75rem 0;
+    z-index: 50;
+    transition: background-color 0.8s var(--ease-editorial),
+                border-color 0.8s var(--ease-editorial);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+
+  .marquee-content {
+    display: flex;
+    gap: 5rem;
+    padding-right: 5rem;
+    white-space: nowrap;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-secondary);
+    text-transform: uppercase;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .status-indicator {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--accent-red);
+    display: inline-block;
+  }
+
+  .telemetry-num,
+  [class^="telemetry-num-dup"] {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+</style>
