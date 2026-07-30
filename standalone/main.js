@@ -1,8 +1,3 @@
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { CustomEase } from "gsap/CustomEase";
-import Lenis from "lenis";
-
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
@@ -12,7 +7,7 @@ CustomEase.create("editorial", "M0,0 C0.65,0.05 0.36,1 1,1");
 // 1. Initialize Lenis Smooth Scroll
 const lenis = new Lenis({
   duration: 1.4,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // exponential ease
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   orientation: 'vertical',
   gestureOrientation: 'vertical',
   smoothWheel: true,
@@ -27,15 +22,13 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
-// Link Lenis to ScrollTrigger
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((time) => {
   lenis.raf(time * 1000);
 });
 gsap.ticker.lagSmoothing(0);
 
-
-// 2. Custom Text-Splitting Utility (Pure JS equivalent of GSAP SplitText for AppLocker/licensing safety)
+// 2. Custom Text-Splitting Utility
 function wrapWords(element) {
   const children = Array.from(element.childNodes);
   
@@ -82,11 +75,8 @@ function splitLines(element) {
   
   wordSpans.forEach(span => {
     const top = span.getBoundingClientRect().top;
-    if (lastTop === -1) {
-      lastTop = top;
-    }
+    if (lastTop === -1) lastTop = top;
     
-    // Account for decimal subpixel discrepancies
     if (Math.abs(top - lastTop) > 6) {
       lines.push(currentLine);
       currentLine = [span];
@@ -95,9 +85,7 @@ function splitLines(element) {
       currentLine.push(span);
     }
   });
-  if (currentLine.length > 0) {
-    lines.push(currentLine);
-  }
+  if (currentLine.length > 0) lines.push(currentLine);
   
   element.innerHTML = '';
   
@@ -113,7 +101,6 @@ function splitLines(element) {
       let parent = span.parentNode;
       let currentElement = cloned;
       
-      // Bubble up to check for inline emphasis tags (red italics)
       while (parent && parent !== element) {
         if (parent.classList.contains('emphasis-italic')) {
           const emp = document.createElement('span');
@@ -136,7 +123,6 @@ function splitLines(element) {
   });
 }
 
-
 // 3. Custom Pointer Cursors
 const cursorDot = document.getElementById('cursorDot');
 const cursorTrail = document.getElementById('cursorTrail');
@@ -147,7 +133,6 @@ if (cursorDot && cursorTrail) {
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    
     gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1, overwrite: 'auto' });
     cursorDot.style.opacity = '1';
     cursorTrail.style.opacity = '1';
@@ -176,8 +161,7 @@ if (cursorDot && cursorTrail) {
   });
 }
 
-
-// 4. Magnetic hover actions
+// 4. Magnetic Buttons
 const magneticBtns = document.querySelectorAll('.magnetic-btn');
 magneticBtns.forEach(btn => {
   const strength = parseFloat(btn.getAttribute('data-strength')) || 12;
@@ -195,10 +179,8 @@ magneticBtns.forEach(btn => {
     const rect = btn.getBoundingClientRect();
     const relX = e.clientX - (rect.left + rect.width / 2);
     const relY = e.clientY - (rect.top + rect.height / 2);
-
     xTo(relX * (strength / 100));
     yTo(relY * (strength / 100));
-
     if (text) {
       textXTo(relX * (strength / 60));
       textYTo(relY * (strength / 60));
@@ -213,49 +195,53 @@ magneticBtns.forEach(btn => {
   });
 });
 
+// Ripple click wave
+const rippleBtns = document.querySelectorAll('.ripple-btn');
+rippleBtns.forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const wave = this.querySelector('.ripple-wave');
+    if (wave) {
+      gsap.set(wave, { x: x, y: y, scale: 0, opacity: 0.6 });
+      gsap.to(wave, { scale: 6, opacity: 0, duration: 0.8, ease: "power2.out" });
+    }
+  });
+});
 
-// 5. Active SVG Flight Path Drawing (Hero)
+// 5. Active Flight Path SVG Drawing
 const activePath = document.getElementById('flight-path-active');
 if (activePath) {
   const pathLen = activePath.getTotalLength();
   gsap.set(activePath, { strokeDasharray: pathLen, strokeDashoffset: pathLen });
-  gsap.to(activePath, {
-    strokeDashoffset: 0,
-    duration: 2.2,
-    ease: "editorial"
-  });
+  gsap.to(activePath, { strokeDashoffset: 0, duration: 2.2, ease: "editorial" });
 }
 
-
-// 6. Navigation Scroll Background Toggle
+// 6. Navigation Scroll toggling
 const navbar = document.getElementById('navbar');
 if (navbar) {
   ScrollTrigger.create({
     start: "top -50",
     end: 99999,
     onToggle: (self) => {
-      if (self.isActive) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      if (self.isActive) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
     }
   });
 }
-
 
 // 7. Split-line reveals on Viewport Enter
 const initSplitHeadings = () => {
   const splitHeadings = document.querySelectorAll('#hero-heading, #touchdown-heading, .feature-title');
   splitHeadings.forEach(heading => {
     splitLines(heading);
-    
     const lines = heading.querySelectorAll('.split-line-content');
     if (lines.length > 0) {
       const trigger = heading.closest('section') || heading;
       
       if (heading.id !== 'hero-heading') {
-        // Hide initially to prevent layout jumps or hardcoded CSS transform issues
+        // Hide initially to prevent layout jumps or CSS translateY bugs
         gsap.set(lines, { yPercent: 110 });
 
         ScrollTrigger.create({
@@ -281,24 +267,37 @@ const initSplitHeadings = () => {
   });
 };
 
+// Mobile menu toggle
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileDropdown = document.getElementById('mobile-dropdown');
+if (mobileMenuBtn && mobileDropdown) {
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileMenuBtn.classList.toggle('open');
+    mobileDropdown.classList.toggle('open');
+    document.body.classList.toggle('lenis-stopped');
+  });
+  mobileDropdown.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenuBtn.classList.remove('open');
+      mobileDropdown.classList.remove('open');
+      document.body.classList.remove('lenis-stopped');
+    });
+  });
+}
 
-// 8. Ticker Simulated Updates
+// 8. Ticker simulated sensor updates
 const tickerAlt = document.getElementById('ticker-alt');
 const tickerVel = document.getElementById('ticker-vel');
 if (tickerAlt && tickerVel) {
   setInterval(() => {
     const currentAlt = parseFloat(tickerAlt.getAttribute('data-val'));
     const currentVel = parseFloat(tickerVel.getAttribute('data-val'));
-    
     const newAlt = Math.max(0, currentAlt + (Math.random() - 0.5) * 3);
     const newVel = Math.max(0, currentVel + (Math.random() - 0.5) * 0.6);
-    
     tickerAlt.setAttribute('data-val', newAlt.toFixed(1));
     tickerVel.setAttribute('data-val', newVel.toFixed(1));
-    
     tickerAlt.textContent = Math.round(newAlt).toLocaleString();
     tickerVel.textContent = newVel.toFixed(1);
-
     const dupAlt = document.querySelector('.telemetry-num-dup1');
     const dupVel = document.querySelector('.telemetry-num-dup2');
     if (dupAlt) dupAlt.textContent = Math.round(newAlt).toLocaleString();
@@ -306,12 +305,11 @@ if (tickerAlt && tickerVel) {
   }, 1000);
 }
 
-
-// 9. Stats Count Up Trigger
+// 9. Stats Count Up
 const initStatsCountUp = () => {
   const statNumbers = document.querySelectorAll('.stat-number');
   statNumbers.forEach(stat => {
-    // Reset back to initial representation before animating
+    // Reset to initial representation
     const decimals = parseInt(stat.getAttribute('data-decimals')) || 0;
     stat.textContent = decimals > 0 ? "0.0" : "0";
 
@@ -340,13 +338,11 @@ const initStatsCountUp = () => {
   });
 };
 
-
-// 10. Global Floating Drone & Inversion Mechanics
+// 10. Global Drone & Inversion Mechanics
 const droneContainer = document.getElementById('global-drone-container');
 const droneRotator = document.getElementById('global-drone-rotator');
 const droneAltText = document.querySelector('#global-drone-telemetry .id-alt');
 const droneVelText = document.querySelector('#global-drone-telemetry .id-vel');
-
 const landingDeck = document.getElementById('landing-deck');
 const landingGlow = document.getElementById('landing-glow');
 const touchdownSection = document.getElementById('touchdown');
@@ -450,13 +446,11 @@ function createDustParticles() {
   for (let i = 0; i < count; i++) {
     const particle = document.createElement('div');
     particle.classList.add('dust-particle');
-    
     const size = Math.random() * 4 + 2;
     particle.style.width = `${size}px`;
     particle.style.height = `${size}px`;
     particle.style.left = '50%';
     particle.style.top = '50%';
-    
     container.appendChild(particle);
     
     const angle = Math.random() * Math.PI * 2;
@@ -465,7 +459,6 @@ function createDustParticles() {
     const yDest = Math.sin(angle) * velocity - (Math.random() * 20 + 5);
     
     gsap.set(particle, { scale: 1, opacity: 0.85 });
-    
     gsap.to(particle, {
       x: xDest,
       y: yDest,
@@ -473,9 +466,7 @@ function createDustParticles() {
       opacity: 0,
       duration: Math.random() * 0.7 + 0.5,
       ease: "editorial",
-      onComplete: () => {
-        particle.remove();
-      }
+      onComplete: () => particle.remove()
     });
   }
 }
@@ -483,7 +474,6 @@ function createDustParticles() {
 function triggerScreenShake() {
   const wrapper = document.getElementById('smooth-content');
   if (!wrapper) return;
-  
   const shakeTl = gsap.timeline();
   shakeTl.to(wrapper, { y: 2.5, x: -1, duration: 0.04, ease: "none" })
          .to(wrapper, { y: -1.5, x: 1.5, duration: 0.04, ease: "none" })
@@ -508,7 +498,6 @@ function generateBezierPath(points) {
   return d;
 }
 
-// Global initialization
 // Global state trackers
 let isIntroActive = true;
 
@@ -537,7 +526,6 @@ const verifyAndResetInversion = () => {
   if (!anyActive) {
     document.body.classList.remove('inverted-colors');
     features.forEach(b => {
-      // Keep drone-present class on active block even if we are not inverted
       const trg = ScrollTrigger.getById(b.id + '-trigger');
       if (!trg || !trg.isActive) {
         b.classList.remove('drone-present');
@@ -636,7 +624,6 @@ const initDescentMechanics = () => {
   }
 };
 
-// Global initialization
 const initGlobalDescent = () => {
   const isMobile = window.innerWidth < 768;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -650,7 +637,7 @@ const initGlobalDescent = () => {
   
   // Re-register Stats triggers so they aren't lost when triggers are cleared
   initStatsCountUp();
-  
+
   // Re-register Split Text headings triggers
   initSplitHeadings();
 
@@ -687,18 +674,13 @@ const initGlobalDescent = () => {
     gsap.set(activePath, { strokeDasharray: pathLen, strokeDashoffset: pathLen });
   }
 
-  // Draw the red horizontal guide line on TouchdownCTA
   const redGuideLine = document.getElementById('landing-vector-path');
   if (redGuideLine) {
     ScrollTrigger.create({
       trigger: landingDeck,
       start: "top 80%",
       onEnter: () => {
-        gsap.to(redGuideLine, {
-          strokeDashoffset: 0,
-          duration: 1.4,
-          ease: "editorial"
-        });
+        gsap.to(redGuideLine, { strokeDashoffset: 0, duration: 1.4, ease: "editorial" });
       }
     });
   }
@@ -782,7 +764,6 @@ const initGlobalDescent = () => {
         document.body.classList.add('is-landing');
         document.body.classList.add('is-landed');
         if (landingGlow) landingGlow.classList.add('active');
-        
         gsap.killTweensOf(droneContainer);
         gsap.set(droneContainer, {
           opacity: 1,
@@ -870,12 +851,8 @@ const initGlobalDescent = () => {
       ScrollTrigger.create({
         trigger: landingDeck,
         start: "top 62%",
-        onEnter: () => {
-          document.body.classList.add('is-landing');
-        },
-        onLeaveBack: () => {
-          document.body.classList.remove('is-landing');
-        }
+        onEnter: () => { document.body.classList.add('is-landing'); },
+        onLeaveBack: () => { document.body.classList.remove('is-landing'); }
       });
 
       ScrollTrigger.create({
@@ -919,4 +896,3 @@ window.addEventListener('resize', () => {
     calculateAnchorCoords();
   }, 150);
 });
-

@@ -61,6 +61,10 @@
         Built by <a href="https://www.linkedin.com/in/trivedikavya/" target="_blank" rel="noopener noreferrer" class="credit-link" style="font-family: 'Fraunces', serif; font-style: italic; text-transform: none; letter-spacing: 0;">Kavya Trivedi</a>
       </div>
     </div>
+    
+    <div class="py-12 border-t border-neutral-800 text-center font-mono text-xs text-neutral-400 hackathon-signature">
+      Built by <span class="text-white font-semibold">Kavya Trivedi</span> for Webflow × GSAP × CodeTV Hackathon 2026
+    </div>
   </div>
 </footer>
 
@@ -219,5 +223,22 @@
 
   .credit-link:hover {
     text-decoration: underline;
+  }
+
+  .hackathon-signature {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-secondary);
+    letter-spacing: 0.05em;
+    transition: border-color 0.8s var(--ease-editorial), color 0.8s var(--ease-editorial);
+  }
+  .hackathon-signature span {
+    color: var(--ink);
+    font-weight: 600;
+    transition: color 0.8s var(--ease-editorial);
   }
 </style>

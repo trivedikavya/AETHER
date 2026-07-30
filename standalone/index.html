@@ -1003,7 +1003,7 @@
                 <div class="meta-row"><span>LOCK RATIO:</span> <span>99.42% STATUS ACTIVE</span></div>
               </div>
             </div>
-            <div class="feature-visual">
+            <div class="feature-visual" data-speed="1.08">
               <div class="tech-panel">
                 <div class="tech-panel-header">
                   <span class="panel-dot"></span>
@@ -1035,7 +1035,7 @@
         <!-- Feature 2 -->
         <div class="feature-block block-right" id="feature-2-pin">
           <div class="container feature-container" id="feature-2-content">
-            <div class="feature-visual">
+            <div class="feature-visual" data-speed="0.92">
               <div class="tech-panel">
                 <div class="tech-panel-header">
                   <span class="panel-dot warn"></span>
@@ -1085,7 +1085,7 @@
                 <div class="meta-row"><span>CLAMPS:</span> <span>PRIMED STATUS READY</span></div>
               </div>
             </div>
-            <div class="feature-visual">
+            <div class="feature-visual" data-speed="1.12">
               <div class="tech-panel">
                 <div class="tech-panel-header">
                   <span class="panel-dot success"></span>
@@ -1114,21 +1114,21 @@
       <section id="stats" class="stats-section">
         <div class="container">
           <div class="stats-grid">
-            <div class="stat-card">
+            <div class="stat-card" data-speed="0.9">
               <span class="mono-accent stat-label">ENTRY 01 — FLIGHTS</span>
               <div class="stat-value-wrapper">
                 <span class="stat-number" data-target="142" data-decimals="1">0.0</span><span class="stat-unit">M</span>
               </div>
               <p class="stat-desc font-mono">Autonomous missions successfully routed through urban coordinates.</p>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" data-speed="1.15">
               <span class="mono-accent stat-label">ENTRY 02 — LOCK SPEED</span>
               <div class="stat-value-wrapper">
                 <span class="stat-number" data-target="42" data-decimals="0">0</span><span class="stat-unit">MS</span>
               </div>
               <p class="stat-desc font-mono">Average 4D airspace recalculation and path conflict resolution speed.</p>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" data-speed="0.95">
               <span class="mono-accent stat-label">ENTRY 03 — DOCKS</span>
               <div class="stat-value-wrapper">
                 <span class="stat-number" data-target="320" data-decimals="0">0</span><span class="stat-unit">+</span>
@@ -1228,6 +1228,10 @@
             <div class="footer-credits">
               Built by <a href="https://www.linkedin.com/in/trivedikavya/" target="_blank" rel="noopener noreferrer" class="credit-link" style="font-family: 'Fraunces', serif; font-style: italic; text-transform: none; letter-spacing: 0;">Kavya Trivedi</a>
             </div>
+          </div>
+          
+          <div class="py-12 border-t border-neutral-800 text-center font-mono text-xs text-neutral-400 hackathon-signature">
+            Built by <span class="text-white font-semibold">Kavya Trivedi</span> for Webflow × GSAP × CodeTV Hackathon 2026
           </div>
         </div>
       </footer>
@@ -2157,6 +2161,13 @@
       initGlobalDescent();
       initDescentMechanics();
     });
+
+    if (document.fonts) {
+      document.fonts.ready.then(() => {
+        initGlobalDescent();
+        calculateAnchorCoords();
+      });
+    }
     
     let resizeTimer;
     window.addEventListener('resize', () => {
