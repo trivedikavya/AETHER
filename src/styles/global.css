@@ -232,6 +232,10 @@ p {
 .split-line-wrapper {
   overflow: hidden;
   display: block;
+  margin-top: -0.15em;
+  margin-bottom: -0.15em;
+  padding-top: 0.15em;
+  padding-bottom: 0.15em;
 }
 .split-line-content {
   display: inline-block;

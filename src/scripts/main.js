@@ -65,6 +65,12 @@ function wrapWords(element) {
 }
 
 function splitLines(element) {
+  if (element._originalHTML) {
+    element.innerHTML = element._originalHTML;
+  } else {
+    element._originalHTML = element.innerHTML;
+  }
+
   wrapWords(element);
   
   const wordSpans = Array.from(element.querySelectorAll('.split-word'));
@@ -250,10 +256,10 @@ const initSplitHeadings = () => {
     if (lines.length > 0) {
       const trigger = heading.closest('section') || heading;
       
-      // Hide initially to prevent layout jumps or hardcoded CSS transform issues
-      gsap.set(lines, { yPercent: 110 });
-
       if (heading.id !== 'hero-heading') {
+        // Hide initially to prevent layout jumps or hardcoded CSS transform issues
+        gsap.set(lines, { yPercent: 110 });
+
         ScrollTrigger.create({
           trigger: trigger,
           start: "top 82%",
@@ -266,6 +272,12 @@ const initSplitHeadings = () => {
             });
           }
         });
+      } else {
+        if (isIntroActive) {
+          gsap.set(lines, { yPercent: 110 });
+        } else {
+          gsap.set(lines, { yPercent: 0 });
+        }
       }
     }
   });
@@ -548,7 +560,7 @@ const runIntroLandingSequence = () => {
     const startX = anchors[0].x;
     const startY = anchors[0].y - 450;
     
-    gsap.set(droneContainer, { x: startX, y: startY, opacity: 1 });
+    gsap.set(droneContainer, { x: startX, y: startY, xPercent: -50, yPercent: -50, opacity: 1 });
     gsap.set(droneRotator, { scale: 2.2, rotate: -25 });
   }
 
@@ -579,6 +591,8 @@ const runIntroLandingSequence = () => {
     introTl.to(droneContainer, {
       x: anchors[0].x,
       y: anchors[0].y,
+      xPercent: -50,
+      yPercent: -50,
       duration: 2.2,
       ease: "power2.out"
     }, 0.2);
@@ -615,7 +629,7 @@ const initDescentMechanics = () => {
     gsap.set(heroLines, { yPercent: 0 });
     
     if (anchors.length > 0) {
-      gsap.set(droneContainer, { x: anchors[0].x, y: anchors[0].y, opacity: 1 });
+      gsap.set(droneContainer, { x: anchors[0].x, y: anchors[0].y, xPercent: -50, yPercent: -50, opacity: 1 });
       gsap.set(droneRotator, { scale: 1.5, rotate: 0 });
     }
   } else {
@@ -754,7 +768,9 @@ const initGlobalDescent = () => {
         gsap.set(droneContainer, {
           opacity: 1,
           x: anchors[anchors.length - 1].x,
-          y: anchors[anchors.length - 1].y + 10
+          y: anchors[anchors.length - 1].y + 10,
+          xPercent: -50,
+          yPercent: -50
         });
       },
       onLeaveBack: () => {
@@ -792,7 +808,7 @@ const initGlobalDescent = () => {
 
           const pCurrent = activePath.getPointAtLength(currentLength);
           if (pCurrent) {
-            gsap.set(droneContainer, { x: pCurrent.x, y: pCurrent.y });
+            gsap.set(droneContainer, { x: pCurrent.x, y: pCurrent.y, xPercent: -50, yPercent: -50 });
 
             let angle = 0;
             if (currentLength < pathLen) {
@@ -852,7 +868,7 @@ const initGlobalDescent = () => {
           createDustParticles();
           triggerScreenShake();
           gsap.to('#global-drone-telemetry', { opacity: 0, duration: 0.3 });
-          gsap.to(droneContainer, { y: anchors[anchors.length - 1].y + 10, duration: 0.2 });
+          gsap.to(droneContainer, { y: anchors[anchors.length - 1].y + 10, xPercent: -50, yPercent: -50, duration: 0.2 });
         },
         onLeaveBack: () => {
           document.body.classList.remove('is-landed');
