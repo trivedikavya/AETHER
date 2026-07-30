@@ -16,7 +16,7 @@
 
       <!-- Description -->
       <p class="hero-desc">
-        Aether coordinates regional airspace corridors into micro-grids. Tracing a clean, 4D trajectory vector from low-orbit entry to touchdown lock, compensating for wind-shear in real-time.
+        Aether coordinates regional airspace corridors into micro&#8209;grids. Tracing a clean, 4D trajectory vector from low&#8209;orbit entry to touchdown lock, compensating for wind&#8209;shear in real&#8209;time.
       </p>
 
       <!-- CTAs (Underline links, pure restraint!) -->
@@ -116,6 +116,25 @@
     height: 140px;
     pointer-events: none;
     z-index: 30;
+  }
+
+  .drone-anchor-point::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(194, 13, 38, 0.1) 0%, rgba(194, 13, 38, 0) 70%);
+    pointer-events: none;
+    z-index: -1;
+    animation: anchorGlowPulse 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes anchorGlowPulse {
+    0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(1.08); opacity: 1.2; }
   }
 
   @media (max-width: 1024px) {

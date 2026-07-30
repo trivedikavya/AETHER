@@ -120,6 +120,7 @@
       line-height: 1.65;
       letter-spacing: -0.015em;
       transition: color 0.8s var(--ease-editorial);
+      text-wrap: pretty;
     }
     .mono-accent {
       font-family: 'JetBrains Mono', monospace;
@@ -483,6 +484,25 @@
       height: 140px;
       pointer-events: none;
       z-index: 30;
+    }
+
+    .drone-anchor-point::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(194, 13, 38, 0.1) 0%, rgba(194, 13, 38, 0) 70%);
+      pointer-events: none;
+      z-index: -1;
+      animation: anchorGlowPulse 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes anchorGlowPulse {
+      0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(1.08); opacity: 1.2; }
     }
     @media (max-width: 1024px) {
       .drone-anchor-point { width: 100px; height: 100px; right: 4%; }
@@ -932,7 +952,7 @@
               Decentralized flight log, mapping the exact stages of a <span class="emphasis-italic">controlled descent.</span>
             </h1>
             <p class="hero-desc">
-              Aether coordinates regional airspace corridors into micro-grids. Tracing a clean, 4D trajectory vector from low-orbit entry to touchdown lock, compensating for wind-shear in real-time.
+              Aether coordinates regional airspace corridors into micro&#8209;grids. Tracing a clean, 4D trajectory vector from low&#8209;orbit entry to touchdown lock, compensating for wind&#8209;shear in real&#8209;time.
             </p>
             <div class="hero-actions">
               <a href="#features" class="editorial-link magnetic-btn" data-strength="15">
@@ -1203,10 +1223,10 @@
             <div class="footer-copy">&copy; 2026 Aether Logistics Inc. All rights reserved.</div>
             <div class="footer-status">
               <span class="status-indicator"></span>
-              <span>OVERWATCH NOMINAL [99.99%]</span>
+              <span>Submission for <span style="font-family: 'Fraunces', serif; font-style: italic; text-transform: none; letter-spacing: 0;">WebFlow</span> X <span style="font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase;">GSAP</span></span>
             </div>
             <div class="footer-credits">
-              Built by Kavya Trivedi 
+              Built by <a href="https://www.linkedin.com/in/trivedikavya/" target="_blank" rel="noopener noreferrer" class="credit-link" style="font-family: 'Fraunces', serif; font-style: italic; text-transform: none; letter-spacing: 0;">Kavya Trivedi</a>
             </div>
           </div>
         </div>
