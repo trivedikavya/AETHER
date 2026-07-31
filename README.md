@@ -1,4 +1,4 @@
-# AETHER — Physics-Driven Kinetic Landing Experience
+# AETHER Physics-Driven Kinetic Landing Experience
 
 A high-performance, scroll-driven interactive landing experience designed for modern airspace tracking and drone logistics orchestration. Built as a custom kinetic web interface showcasing continuous alignment animation, layout un-gridding, and real-time canvas coordination.
 
@@ -6,14 +6,14 @@ Official submission for the **Webflow × GSAP × CodeTV Hackathon 2026**.
 
 ---
 
-## 🚀 Live Demonstrations & Links
+## Live Demonstrations & Links
 
-- **Webflow Cloud Deployment**: `https://aether-logistics.webflow.io`
-- **Standalone Interactive View**: `http://localhost:3000/standalone/index.html` (Local Dev server target)
+- **Deployment**: `https://webflowxgsap.netlify.app/`
+- **Standalone Interactive View**: `http://localhost:3000/standalone/index.html` (Local Dev server target for Smooth and Fast Interaction)
 
 ---
 
-## 🛠️ The Tech Stack
+##  The Tech Stack
 
 - **Astro**: High-performance, components-driven web framework for generating the foundational HTML and asset orchestration.
 - **GSAP (GreenSock Animation Platform)**: The kinetic engine powering the entire landing experience:
@@ -25,7 +25,7 @@ Official submission for the **Webflow × GSAP × CodeTV Hackathon 2026**.
 
 ---
 
-## 💫 Premium Kinetic Animations
+##  Premium Kinetic Animations
 
 1. **Async Font Hydration (Reflow-Safe Text Splitting)**
    - Custom character-wrapping utility wrapped inside a `document.fonts.ready` promise. Text is only split once the custom web fonts (`Bricolage Grotesque`, `Fraunces`, `JetBrains Mono`) are fully loaded, preventing layout shifts, line squishing, or character clipping.
@@ -40,7 +40,7 @@ Official submission for the **Webflow × GSAP × CodeTV Hackathon 2026**.
 
 ---
 
-## 📦 Installation & Running Locally
+##  Installation & Running Locally
 
 1. **Clone the repository**:
    ```bash
@@ -66,6 +66,6 @@ Official submission for the **Webflow × GSAP × CodeTV Hackathon 2026**.
 
 ---
 
-## ✍️ Hackathon Submission Credits
+## Hackathon Submission Credits
 
 Built with precision and editorial focus by **Kavya Trivedi** for the **Webflow × GSAP × CodeTV Hackathon 2026**.
