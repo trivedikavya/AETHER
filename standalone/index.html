@@ -1229,10 +1229,6 @@
               Built by <a href="https://www.linkedin.com/in/trivedikavya/" target="_blank" rel="noopener noreferrer" class="credit-link" style="font-family: 'Fraunces', serif; font-style: italic; text-transform: none; letter-spacing: 0;">Kavya Trivedi</a>
             </div>
           </div>
-          
-          <div class="py-12 border-t border-neutral-800 text-center font-mono text-xs text-neutral-400 hackathon-signature">
-            Built by <span class="text-white font-semibold">Kavya Trivedi</span> for Webflow × GSAP × CodeTV Hackathon 2026
-          </div>
         </div>
       </footer>
 
@@ -2157,17 +2153,18 @@
       }
     };
 
-    window.addEventListener('load', () => {
+    const startApp = () => {
       initGlobalDescent();
       initDescentMechanics();
-    });
+    };
 
-    if (document.fonts) {
-      document.fonts.ready.then(() => {
-        initGlobalDescent();
-        calculateAnchorCoords();
-      });
-    }
+    window.addEventListener('load', () => {
+      if (document.fonts) {
+        document.fonts.ready.then(startApp);
+      } else {
+        startApp();
+      }
+    });
     
     let resizeTimer;
     window.addEventListener('resize', () => {

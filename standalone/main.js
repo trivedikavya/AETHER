@@ -876,17 +876,18 @@ const initGlobalDescent = () => {
   }
 };
 
-window.addEventListener('load', () => {
+const startApp = () => {
   initGlobalDescent();
   initDescentMechanics();
-});
+};
 
-if (document.fonts) {
-  document.fonts.ready.then(() => {
-    initGlobalDescent();
-    calculateAnchorCoords();
-  });
-}
+window.addEventListener('load', () => {
+  if (document.fonts) {
+    document.fonts.ready.then(startApp);
+  } else {
+    startApp();
+  }
+});
 
 let resizeTimer;
 window.addEventListener('resize', () => {
