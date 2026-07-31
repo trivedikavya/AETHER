@@ -38,6 +38,15 @@ const { title, description } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="/styles/style.css" is:inline />
+
+    <!-- GSAP / Lenis CDNs (exact same as standalone/index.html) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" is:inline></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" is:inline></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js" is:inline></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" is:inline></script>
   </head>
   <body>
     <!-- Premium noise/grain layer -->
@@ -57,9 +66,7 @@ const { title, description } = Astro.props;
     <!-- Elements placed outside smooth scrolling wrapper (e.g. fixed overlays) -->
     <slot name="outside" />
 
-    <!-- GSAP / Lenis Scripts -->
-    <script>
-      import "../scripts/main.js";
-    </script>
+    <!-- Main Client Logic -->
+    <script src="/scripts/main.js" is:inline></script>
   </body>
 </html>
