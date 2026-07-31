@@ -1,12 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Navigation from "../components/Navigation.astro";
-import Hero from "../components/Hero.astro";
-import LiveStatus from "../components/LiveStatus.astro";
-import Features from "../components/Features.astro";
-import Stats from "../components/Stats.astro";
-import TouchdownCTA from "../components/TouchdownCTA.astro";
-import Footer from "../components/Footer.astro";
 import VehicleSVG from "../components/VehicleSVG.astro";
 import "../styles/global.css";
 ---
@@ -15,23 +8,337 @@ import "../styles/global.css";
   title="Aether — Autonomous Flight Tracking & Drone Delivery SaaS" 
   description="Experience decentralized logistics. Set custom coordinates, track automated drone descent, and experience precise touchdown lock onto docking electromagnetic terminals."
 >
-  <Navigation />
+  <!-- Navigation Header -->
+  <nav id="navbar" class="nav-bar">
+    <div class="nav-container container">
+      <a href="#" class="nav-logo">
+        <span class="logo-text">AETHER</span>
+        <span class="logo-dot"></span>
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="nav-link-item mono-accent">01 — Logbook</a>
+        <a href="#stats" class="nav-link-item mono-accent">02 — Metrics</a>
+        <a href="#touchdown" class="nav-link-item mono-accent">03 — Landing</a>
+      </div>
+      <div class="nav-cta">
+        <a href="#touchdown" class="editorial-link nav-cta-link magnetic-btn" data-strength="12">
+          Book Terminal Access <span>&rarr;</span>
+        </a>
+        <button id="mobile-menu-btn" class="hamburger" aria-label="Toggle menu">
+          <span class="line"></span>
+          <span class="line"></span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-dropdown" class="mobile-menu">
+      <div class="mobile-menu-links">
+        <a href="#features" class="mobile-link">01 — Logbook</a>
+        <a href="#stats" class="mobile-link">02 — Metrics</a>
+        <a href="#touchdown" class="mobile-link">03 — Landing</a>
+        <a href="#touchdown" class="editorial-link mobile-btn magnetic-btn">Book Terminal Access <span>&rarr;</span></a>
+      </div>
+    </div>
+  </nav>
+
   <main>
-    <Hero />
-    <LiveStatus />
-    <Features />
-    <Stats />
-    <TouchdownCTA />
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="mono-accent">// FIELD LOG — ENTRY 01</span>
+          </div>
+          <h1 class="hero-title" id="hero-heading">
+            Decentralized flight log, mapping the exact stages of a <span class="emphasis-italic">controlled descent.</span>
+          </h1>
+          <p class="hero-desc">
+            Aether coordinates regional airspace corridors into micro&#8209;grids. Tracing a clean, 4D trajectory vector from low&#8209;orbit entry to touchdown lock, compensating for wind&#8209;shear in real&#8209;time.
+          </p>
+          <div class="hero-actions">
+            <a href="#features" class="editorial-link magnetic-btn" data-strength="15">
+              Read Stage Logs <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div id="anchor-hero" class="drone-anchor-point"></div>
+      </div>
+    </section>
+
+    <!-- Live marquee strip -->
+    <div class="live-status-strip">
+      <div class="marquee-track">
+        <div class="marquee-content font-mono">
+          <div class="status-item"><span class="status-indicator"></span><span class="mono-accent">// GRID OVERWATCH ACTIVATED</span></div>
+          <div class="status-item"><span>ALT:</span><span id="ticker-alt" class="telemetry-num" data-val="1402">1,402</span><span>M</span></div>
+          <div class="status-item"><span>VEL:</span><span id="ticker-vel" class="telemetry-num" data-val="72.4">72.4</span><span>M/S</span></div>
+          <div class="status-item"><span>SYS LOG // TIME:</span><span>18:02:27 UTC</span></div>
+          <div class="status-item"><span>GRID:</span><span>40.7128° N, 74.0060° W</span></div>
+          <div class="status-item"><span>SIGNAL:</span><span id="ticker-sat" data-val="12">12</span><span>/16 DB</span></div>
+        </div>
+        <div class="marquee-content font-mono" aria-hidden="true">
+          <div class="status-item"><span class="status-indicator"></span><span class="mono-accent">// GRID OVERWATCH ACTIVATED</span></div>
+          <div class="status-item"><span>ALT:</span><span class="telemetry-num-dup1">1,402</span><span>M</span></div>
+          <div class="status-item"><span>VEL:</span><span class="telemetry-num-dup2">72.4</span><span>M/S</span></div>
+          <div class="status-item"><span>SYS LOG // TIME:</span><span>18:02:27 UTC</span></div>
+          <div class="status-item"><span>GRID:</span><span>40.7128° N, 74.0060° W</span></div>
+          <div class="status-item"><span>SIGNAL:</span><span class="telemetry-num-dup4">12</span><span>/16 DB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature Stages -->
+    <section id="features" class="features-section">
+      <!-- Feature 1 -->
+      <div class="feature-block" id="feature-1">
+        <div class="container feature-container">
+          <div class="feature-text">
+            <span class="mono-accent stage-num">STAGE 01 — ROUTING CORRIDORS</span>
+            <h2 class="feature-title">Airspace Partitioning & Spatial Corridors</h2>
+            <p class="feature-desc">
+              Aether dynamically divides regional airspace into high-precision vector corridors. Our predictive trajectory engine locks path coordinates, shifting travel corridors to bypass localized turbulence and drone congestion points in real-time.
+            </p>
+            <div class="feature-metadata font-mono">
+              <div class="meta-row"><span>PROTOCOL:</span> <span>AE-ROUTING-V4</span></div>
+              <div class="meta-row"><span>LOCK RATIO:</span> <span>99.42% STATUS ACTIVE</span></div>
+            </div>
+          </div>
+          <div class="feature-visual" data-speed="1.08">
+            <div class="tech-panel">
+              <div class="tech-panel-header">
+                <span class="panel-dot"></span>
+                <span class="panel-title">// ORBIT_MAP.SCHEMATIC</span>
+              </div>
+              <div class="panel-content">
+                <svg class="map-grid-svg" viewBox="0 0 400 240">
+                  <line x1="0" y1="40" x2="400" y2="40" stroke="rgba(20, 20, 20, 0.05)" stroke-width="1" />
+                  <line x1="0" y1="120" x2="400" y2="120" stroke="rgba(20, 20, 20, 0.05)" stroke-width="1" />
+                  <line x1="0" y1="200" x2="400" y2="200" stroke="rgba(20, 20, 20, 0.05)" stroke-width="1" />
+                  <line x1="80" y1="0" x2="80" y2="240" stroke="rgba(20, 20, 20, 0.05)" stroke-width="1" />
+                  <line x1="200" y1="0" x2="200" y2="240" stroke="rgba(20, 20, 20, 0.05)" stroke-width="1" />
+                  <line x1="320" y1="0" x2="320" y2="240" stroke="rgba(20, 20, 20, 0.05)" stroke-width="1" />
+                  <path d="M40,180 Q160,30 260,140 T360,70" fill="none" stroke="rgba(20, 20, 20, 0.1)" stroke-width="1" stroke-dasharray="3 3" />
+                  <path d="M40,180 Q160,30 260,140 T360,70" fill="none" stroke="var(--ink)" stroke-width="1.5" />
+                  <circle cx="40" cy="180" r="3.5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5" />
+                  <circle cx="260" cy="140" r="3.5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5" />
+                  <circle cx="360" cy="70" r="3.5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5" />
+                </svg>
+                <div class="visual-label font-mono">SYS_GRID_09 // OK</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="hairline-divider" />
+
+      <!-- Feature 2 -->
+      <div class="feature-block block-right" id="feature-2-pin">
+        <div class="container feature-container" id="feature-2-content">
+          <div class="feature-visual" data-speed="0.92">
+            <div class="tech-panel">
+              <div class="tech-panel-header">
+                <span class="panel-dot warn"></span>
+                <span class="panel-title">// LIDAR_RADAR.SHIELD</span>
+              </div>
+              <div class="panel-content flex-center">
+                <div class="sensor-shield-visual">
+                  <div class="pulse-ring ring-1"></div>
+                  <div class="pulse-ring ring-2"></div>
+                  <div class="warning-symbol font-mono">ACTIVE SHIELD</div>
+                </div>
+                <div class="sensor-telem font-mono">
+                  <div>RANGE: <span>12.4M</span></div>
+                  <div>SWEEP RATE: <span>0.02S</span></div>
+                  <div>THREAT CORRELATION: <span>NIL</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="feature-text">
+            <span class="mono-accent stage-num">STAGE 02 — LIDAR PROTECTION</span>
+            <h2 class="feature-title">Precision Hover & Boundary Shield</h2>
+            <p class="feature-desc">
+              As the vehicle enters dense wind corridors, a virtual LIDAR shielding bubble initiates. Compressing spatial vectors at the edge boundaries allows the vehicle to sustain stable hovering offsets with a tolerance of under 2 millimeters.
+            </p>
+            <div class="feature-metadata font-mono">
+              <div class="meta-row"><span>BOUNDS:</span> <span>2.0MM GYRO LOCKED</span></div>
+              <div class="meta-row"><span>WIND SHEAR:</span> <span>COMPENSATING ACTIVE</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="hairline-divider" />
+
+      <!-- Feature 3 -->
+      <div class="feature-block" id="feature-3">
+        <div class="container feature-container">
+          <div class="feature-text">
+            <span class="mono-accent stage-num">STAGE 03 — DOCKING DYNAMICS</span>
+            <h2 class="feature-title">Optical Docking & Magnetic Clamp Align</h2>
+            <p class="feature-desc">
+              Optical computer vision sensors analyze ground docking clearances dynamically. Upon descent threshold confirmation, Aether synchronizes target locking positions to align clean touchdown onto electromagnetic terminal pads.
+            </p>
+            <div class="feature-metadata font-mono">
+              <div class="meta-row"><span>DOCK:</span> <span>OPTICAL ALIGNED</span></div>
+              <div class="meta-row"><span>CLAMPS:</span> <span>PRIMED STATUS READY</span></div>
+            </div>
+          </div>
+          <div class="feature-visual" data-speed="1.12">
+            <div class="tech-panel">
+              <div class="tech-panel-header">
+                <span class="panel-dot success"></span>
+                <span class="panel-title">// DOCK_ALIGN.GRID</span>
+              </div>
+              <div class="panel-content flex-center">
+                <div class="landing-crosshairs">
+                  <div class="cross-line h"></div>
+                  <div class="cross-line v"></div>
+                  <div class="target-circle"></div>
+                  <div class="corner cr-tl"></div>
+                  <div class="corner cr-tr"></div>
+                  <div class="corner cr-bl"></div>
+                  <div class="corner cr-br"></div>
+                </div>
+                <div class="lock-status-label font-mono">GRID ACQUIRED</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats section -->
+    <section id="stats" class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card" data-speed="0.9">
+            <span class="mono-accent stat-label">ENTRY 01 — FLIGHTS</span>
+            <div class="stat-value-wrapper">
+              <span class="stat-number" data-target="142" data-decimals="1">0.0</span><span class="stat-unit">M</span>
+            </div>
+            <p class="stat-desc font-mono">Autonomous missions successfully routed through urban coordinates.</p>
+          </div>
+          <div class="stat-card" data-speed="1.15">
+            <span class="mono-accent stat-label">ENTRY 02 — LOCK SPEED</span>
+            <div class="stat-value-wrapper">
+              <span class="stat-number" data-target="42" data-decimals="0">0</span><span class="stat-unit">MS</span>
+            </div>
+            <p class="stat-desc font-mono">Average 4D airspace recalculation and path conflict resolution speed.</p>
+          </div>
+          <div class="stat-card" data-speed="0.95">
+            <span class="mono-accent stat-label">ENTRY 03 — DOCKS</span>
+            <div class="stat-value-wrapper">
+              <span class="stat-number" data-target="320" data-decimals="0">0</span><span class="stat-unit">+</span>
+            </div>
+            <p class="stat-desc font-mono">Active ground docking terminals globally connected to the Aether grid.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Touchdown Inversion Section -->
+    <section id="touchdown" class="touchdown-section">
+      <div class="touchdown-glow-layer" id="landing-glow"></div>
+      <div class="container touchdown-container">
+        <div class="landing-deck" id="landing-deck">
+          <div class="deck-outline"></div>
+          <div class="docking-pad">
+            <div class="dock-ring outer"></div>
+            <div class="dock-ring inner"></div>
+            <div class="dock-crosshair"></div>
+            <div class="dock-sensors">
+              <span class="sensor-light flash-slow"></span>
+              <span class="sensor-light flash-fast"></span>
+            </div>
+          </div>
+          <svg class="landing-vector-line" viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path id="landing-vector-path" d="M 5,20 L 45,20 M 55,20 L 95,20" stroke="var(--accent-red)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="100" stroke-dashoffset="100" />
+          </svg>
+          <div id="particle-burst-container" class="particle-burst-container"></div>
+        </div>
+
+        <div class="touchdown-content">
+          <span class="mono-accent touchdown-tag">// SEQUENCE TERMINATED</span>
+          <h2 class="touchdown-title" id="touchdown-heading">
+            Airspace <span class="emphasis-italic">touchdown lock</span> is fully confirmed.
+          </h2>
+          <p class="touchdown-desc">
+            Descent sequence successfully finalized. Engaged ground clamps, verified terminal telemetry lock. Grid online.
+          </p>
+          <div class="cta-wrapper">
+            <a href="#" class="editorial-link touchdown-btn magnetic-btn ripple-btn" id="ultimate-cta" data-strength="15">
+              Secure Docking Corridor <span>&rarr;</span>
+              <span class="ripple-wave"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
-  
-  <!-- Global Flight Path SVG Overlay (Drawn dynamically in main.js connecting visual grids) -->
-  <svg id="global-flight-path-svg" class="global-flight-path-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo-mark">
+            <span class="logo-text">AETHER</span>
+            <span class="logo-dot"></span>
+          </div>
+          <p class="brand-desc font-mono">
+            Autonomous logistics orchestration grid. Secure airspace routing for high-density urban environments.
+          </p>
+        </div>
+        <div class="footer-links-grid">
+          <div class="footer-col">
+            <span class="mono-accent col-label">// FLIGHT CORRIDORS</span>
+            <div class="col-links">
+              <a href="#features">Spatial Corridors</a>
+              <a href="#stats">Metrics Network</a>
+              <a href="#touchdown">Terminal Control</a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <span class="mono-accent col-label">// PROTOCOLS</span>
+            <div class="col-links">
+              <a href="#">Wind Shear Limits</a>
+              <a href="#">LIDAR Bubble Specs</a>
+              <a href="#">Override Protocols</a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <span class="mono-accent col-label">// LEGAL OVERWATCH</span>
+            <div class="col-links">
+              <a href="#">FAA Integration</a>
+              <a href="#">Terminal Map Status</a>
+              <a href="#">Airspace Security</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="hairline-divider" />
+      <div class="footer-bottom font-mono">
+        <div class="footer-copy">&copy; 2026 Aether Logistics Inc. All rights reserved.</div>
+        <div class="footer-status">
+          <span class="status-indicator"></span>
+          <span>Submission for <span style="font-family: 'Fraunces', serif; font-style: italic; text-transform: none; letter-spacing: 0;">WebFlow</span> X <span style="font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase;">GSAP</span></span>
+        </div>
+        <div class="footer-credits">
+          Built by <a href="https://www.linkedin.com/in/trivedikavya/" target="_blank" rel="noopener noreferrer" class="credit-link" style="font-family: 'Fraunces', serif; font-style: italic; text-transform: none; letter-spacing: 0;">Kavya Trivedi</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Global Flight Path SVG Overlay (slot="outside" places it outside the Lenis scroll wrapper) -->
+  <svg slot="outside" id="global-flight-path-svg" class="global-flight-path-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path id="global-flight-path-bg" stroke="rgba(194, 13, 38, 0.05)" stroke-width="1.5" stroke-dasharray="6 6" />
     <path id="global-flight-path-active" stroke="var(--accent-red)" stroke-width="2.2" stroke-linecap="round" />
   </svg>
 
-  <!-- Global Drone Vehicle (Animated and positioned in main.js along section anchors) -->
-  <div id="global-drone-container" class="global-drone-container">
+  <!-- Global Floating Drone Overlay (slot="outside" places it outside the Lenis scroll wrapper) -->
+  <div slot="outside" id="global-drone-container" class="global-drone-container">
     <div class="drone-rotator" id="global-drone-rotator">
       <VehicleSVG />
     </div>
@@ -43,6 +350,4 @@ import "../styles/global.css";
       <div class="telemetry-line"><span class="label">ALT:</span> <span class="val id-alt font-mono">1,402 M</span></div>
     </div>
   </div>
-
-  <Footer />
 </Layout>

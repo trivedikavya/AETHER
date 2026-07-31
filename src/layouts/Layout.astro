@@ -54,6 +54,9 @@ const { title, description } = Astro.props;
       </div>
     </div>
 
+    <!-- Elements placed outside smooth scrolling wrapper (e.g. fixed overlays) -->
+    <slot name="outside" />
+
     <!-- GSAP / Lenis Scripts -->
     <script>
       import "../scripts/main.js";
